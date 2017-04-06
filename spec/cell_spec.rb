@@ -463,7 +463,7 @@ describe "Prawn::Table::Cell" do
     it "should pass through text options like :align to Text::Box" do
       c = cell(:content => "text", :align => :right)
 
-      box = Prawn::Text::Box.new("text", :document => @pdf)
+      box = Prawn::Table::Cell::Box.new("text", :document => @pdf)
 
       expect(Prawn::Text::Box).to receive(:new).with("text", hash_including(align: :right))
         .at_least(:once).and_return(box)
@@ -474,7 +474,7 @@ describe "Prawn::Table::Cell" do
     it "should use font_style for Text::Box#style" do
       c = cell(:content => "text", :font_style => :bold)
 
-      box = Prawn::Text::Box.new("text", :document => @pdf)
+      box = Prawn::Table::Cell::Box.new("text", :document => @pdf)
 
       expect(Prawn::Text::Box).to receive(:new).with("text", hash_including(style: :bold))
         .at_least(:once).and_return(box)
@@ -522,7 +522,7 @@ describe "Prawn::Table::Cell" do
     it "should allow inline formatting in cells" do
       c = cell(:content => "foo <b>bar</b> baz", :inline_format => true)
 
-      box = Prawn::Text::Formatted::Box.new([], :document => @pdf)
+      box = Prawn::Table::Cell::Formatted::Box.new([], :document => @pdf)
 
       expect(Prawn::Text::Formatted::Box).to receive(:new).with(
         [
